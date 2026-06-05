@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIPENKAP - Sistem Pengaduan Penumpang Kapal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+:root{
+--primary:#0f172a;
+--secondary:#0ea5e9;
+--light:#f8fafc;
+--white:#ffffff;
+--success:#22c55e;
+--warning:#f59e0b;
+--danger:#ef4444;
+}
+
+body{
+background:#f4f7fb;
+color:#1e293b;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:18px 8%;
+background:rgba(15,23,42,.95);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:999;
+}
+
+.logo{
+color:white;
+font-size:24px;
+font-weight:700;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-weight:500;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:#38bdf8;
+}
+
+.login-btn{
+background:var(--secondary);
+padding:10px 20px;
+border-radius:10px;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+background:
+linear-gradient(rgba(15,23,42,.8),rgba(15,23,42,.8)),
+url("https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero-content{
+max-width:850px;
+color:white;
+}
+
+.hero-content h1{
+font-size:58px;
+margin-bottom:20px;
+}
+
+.hero-content p{
+font-size:18px;
+line-height:1.8;
+margin-bottom:30px;
+}
+
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 28px;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+cursor:pointer;
+border:none;
+}
+
+.btn-primary{
+background:var(--secondary);
+color:white;
+}
+
+.btn-primary:hover{
+transform:translateY(-3px);
+}
+
+.btn-outline{
+border:2px solid white;
+background:transparent;
+color:white;
+}
+
+/* SECTION */
+
+section{
+padding:90px 8%;
+}
+
+.section-title{
+text-align:center;
+font-size:36px;
+margin-bottom:50px;
+color:var(--primary);
+}
+
+/* STATS */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.stat-card{
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.stat-card h2{
+font-size:42px;
+color:var(--secondary);
+}
+
+/* FEATURES */
+
+.features{
+background:white;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.feature-card{
+background:#f8fafc;
+padding:30px;
+border-radius:20px;
+text-align:center;
+}
+
+.feature-card span{
+font-size:45px;
+display:block;
+margin-bottom:15px;
+}
+
+/* FORM */
+
+.form-card{
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+max-width:900px;
+margin:auto;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:8px;
+font-weight:500;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:14px;
+border:1px solid #dbe1e8;
+border-radius:10px;
+outline:none;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+.submit-btn{
+width:100%;
+background:var(--secondary);
+color:white;
+padding:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+/* TRACKING */
+
+.tracking-box{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+max-width:700px;
+margin:auto;
+}
+
+/* LOGIN MODAL */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.modal-content{
+background:white;
+padding:30px;
+width:400px;
+border-radius:20px;
+}
+
+.modal-content h2{
+margin-bottom:20px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:none;
+background:white;
+margin-top:40px;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.dashboard h2{
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th{
+background:var(--primary);
+color:white;
+padding:12px;
+}
+
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+.status-btn{
+background:var(--success);
+border:none;
+color:white;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+footer{
+background:var(--primary);
+color:white;
+padding:30px;
+text-align:center;
+margin-top:50px;
+}
+
+@media(max-width:768px){
+
+.hero-content h1{
+font-size:40px;
+}
+
+.nav-links{
+display:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">⚓ SIPENKAP</div>
+
+<div class="nav-links">
+<a href="#home">Beranda</a>
+<a href="#pengaduan">Pengaduan</a>
+<a href="#tracking">Tracking</a>
+<a href="#fitur">Fitur</a>
+</div>
+
+<button class="login-btn" onclick="openLogin()">
+Login Admin
+</button>
+
+</nav>
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<h1>Sistem Pengaduan Penumpang Kapal</h1>
+
+<p>
+Layanan digital pengaduan penumpang kapal yang cepat,
+transparan, profesional, dan mudah diakses kapan saja.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#pengaduan" class="btn btn-primary">
+Buat Pengaduan
+</a>
+
+<a href="#tracking" class="btn btn-outline">
+Cek Status
+</a>
+
+</div>
+
+</div>
+
+</section>
+<!-- STATISTIK -->
+
+<section>
+
+<h2 class="section-title">
+Statistik Layanan
+</h2>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h2 id="totalPengaduan">0</h2>
+<p>Total Pengaduan</p>
+</div>
+
+<div class="stat-card">
+<h2 id="diprosesPengaduan">0</h2>
+<p>Diproses</p>
+</div>
+
+<div class="stat-card">
+<h2 id="selesaiPengaduan">0</h2>
+<p>Selesai</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FITUR -->
+
+<section class="features" id="fitur">
+
+<h2 class="section-title">
+Fitur SIPENKAP
+</h2>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<span>📝</span>
+<h3>Pengaduan Online</h3>
+<p>
+Penumpang dapat mengirim keluhan secara online
+tanpa harus datang ke kantor layanan.
+</p>
+</div>
+
+<div class="feature-card">
+<span>🔍</span>
+<h3>Tracking Status</h3>
+<p>
+Pantau perkembangan pengaduan secara real-time
+menggunakan nomor pengaduan.
+</p>
+</div>
+
+<div class="feature-card">
+<span>⚡</span>
+<h3>Respon Cepat</h3>
+<p>
+Admin dapat memproses dan memperbarui status
+pengaduan secara langsung.
+</p>
+</div>
+
+<div class="feature-card">
+<span>📊</span>
+<h3>Dashboard Admin</h3>
+<p>
+Memudahkan pengelolaan seluruh laporan
+dalam satu tampilan modern.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FORM PENGADUAN -->
+
+<section id="pengaduan">
+
+<h2 class="section-title">
+Buat Pengaduan
+</h2>
+
+<div class="form-card">
+
+<div class="form-group">
+<label>Nama Penumpang</label>
+<input type="text" id="nama">
+</div>
+
+<div class="form-group">
+<label>Nomor Tiket</label>
+<input type="text" id="tiket">
+</div>
+
+<div class="form-group">
+<label>Nama Kapal</label>
+<input type="text" id="kapal">
+</div>
+
+<div class="form-group">
+<label>Rute Perjalanan</label>
+<input type="text" id="rute">
+</div>
+
+<div class="form-group">
+<label>Kategori Keluhan</label>
+
+<select id="kategori">
+
+<option>Keterlambatan Keberangkatan</option>
+
+<option>Fasilitas Kapal</option>
+
+<option>Keselamatan Pelayaran</option>
+
+<option>Pelayanan Awak Kapal</option>
+
+<option>Bagasi</option>
+
+<option>Tiket dan Reservasi</option>
+
+<option>Lainnya</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+<label>Deskripsi Keluhan</label>
+
+<textarea id="keluhan"></textarea>
+
+</div>
+
+<button
+class="submit-btn"
+onclick="kirimPengaduan()">
+
+Kirim Pengaduan
+
+</button>
+
+<br><br>
+
+<div id="notifPengaduan"></div>
+
+</div>
+
+</section>
+
+<!-- TRACKING -->
+
+<section id="tracking">
+
+<h2 class="section-title">
+Cek Status Pengaduan
+</h2>
+
+<div class="tracking-box">
+
+<div class="form-group">
+
+<label>Masukkan Nomor Pengaduan</label>
+
+<input
+type="text"
+id="trackingID"
+placeholder="Contoh: PGD-0001">
+
+</div>
+
+<button
+class="submit-btn"
+onclick="cekTracking()">
+
+Cari Pengaduan
+
+</button>
+
+<br><br>
+
+<div id="hasilTracking"></div>
+
+</div>
+
+</section>
+
+<!-- LOGIN ADMIN -->
+
+<div class="modal" id="loginModal">
+
+<div class="modal-content">
+
+<h2>Login Admin</h2>
+
+<div class="form-group">
+
+<label>Username</label>
+
+<input
+type="text"
+id="adminUser">
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="adminPass">
+
+</div>
+
+<button
+class="submit-btn"
+onclick="loginAdmin()">
+
+Masuk
+
+</button>
+
+<br><br>
+
+<button
+class="submit-btn"
+style="background:#64748b"
+onclick="closeLogin()">
+
+Tutup
+
+</button>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD ADMIN -->
+
+<section>
+
+<div
+class="dashboard"
+id="dashboard">
+
+<h2>Dashboard Admin SIPENKAP</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Nama</th>
+<th>Kapal</th>
+<th>Kategori</th>
+<th>Status</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody id="dataPengaduan">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 SIPENKAP -
+Sistem Pengaduan Penumpang Kapal
+
+</footer>
+<script>
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+function openLogin(){
+document.getElementById("loginModal").style.display="flex";
+}
+
+function closeLogin(){
+document.getElementById("loginModal").style.display="none";
+}
+
+/* =========================
+   DATABASE LOCAL STORAGE
+========================= */
+
+function getPengaduan(){
+return JSON.parse(localStorage.getItem("sipenkap")) || [];
+}
+
+function savePengaduan(data){
+localStorage.setItem(
+"sipenkap",
+JSON.stringify(data)
+);
+}
+
+/* =========================
+   GENERATE ID
+========================= */
+
+function generateID(){
+
+let data = getPengaduan();
+
+let nomor = data.length + 1;
+
+return "PGD-" +
+String(nomor).padStart(4,"0");
+
+}
+
+/* =========================
+   KIRIM PENGADUAN
+========================= */
+
+function kirimPengaduan(){
+
+let nama =
+document.getElementById("nama").value;
+
+let tiket =
+document.getElementById("tiket").value;
+
+let kapal =
+document.getElementById("kapal").value;
+
+let rute =
+document.getElementById("rute").value;
+
+let kategori =
+document.getElementById("kategori").value;
+
+let keluhan =
+document.getElementById("keluhan").value;
+
+if(
+nama=="" ||
+tiket=="" ||
+kapal=="" ||
+rute=="" ||
+keluhan==""
+){
+
+alert("Mohon lengkapi semua data.");
+
+return;
+
+}
+
+let id = generateID();
+
+let pengaduan = {
+
+id:id,
+nama:nama,
+tiket:tiket,
+kapal:kapal,
+rute:rute,
+kategori:kategori,
+keluhan:keluhan,
+status:"Menunggu",
+tanggal:new Date().toLocaleDateString()
+
+};
+
+let data = getPengaduan();
+
+data.push(pengaduan);
+
+savePengaduan(data);
+
+document.getElementById(
+"notifPengaduan"
+).innerHTML =
+
+`
+<div style="
+background:#dcfce7;
+padding:15px;
+border-radius:10px;
+color:#166534;
+font-weight:600;
+">
+
+Pengaduan berhasil dikirim.<br>
+Nomor Pengaduan Anda:<br>
+
+<h3>${id}</h3>
+
+Simpan nomor ini untuk tracking.
+
+</div>
+`;
+
+document.getElementById("nama").value="";
+document.getElementById("tiket").value="";
+document.getElementById("kapal").value="";
+document.getElementById("rute").value="";
+document.getElementById("keluhan").value="";
+
+updateStatistik();
+
+}
+
+/* =========================
+   TRACKING
+========================= */
+
+function cekTracking(){
+
+let id =
+document.getElementById(
+"trackingID"
+).value;
+
+let data =
+getPengaduan();
+
+let hasil =
+data.find(
+item => item.id === id
+);
+
+if(hasil){
+
+document.getElementById(
+"hasilTracking"
+).innerHTML =
+
+`
+<div style="
+background:#f8fafc;
+padding:20px;
+border-radius:12px;
+">
+
+<h3>${hasil.id}</h3>
+
+<p><b>Nama:</b> ${hasil.nama}</p>
+
+<p><b>Kapal:</b> ${hasil.kapal}</p>
+
+<p><b>Rute:</b> ${hasil.rute}</p>
+
+<p><b>Status:</b> ${hasil.status}</p>
+
+<p><b>Tanggal:</b> ${hasil.tanggal}</p>
+
+</div>
+`;
+
+}else{
+
+document.getElementById(
+"hasilTracking"
+).innerHTML =
+
+`
+<div style="
+background:#fee2e2;
+padding:15px;
+border-radius:10px;
+color:#991b1b;
+">
+
+Data tidak ditemukan.
+
+</div>
+`;
+
+}
+
+}
+
+/* =========================
+   LOGIN ADMIN
+========================= */
+
+function loginAdmin(){
+
+let user =
+document.getElementById(
+"adminUser"
+).value;
+
+let pass =
+document.getElementById(
+"adminPass"
+).value;
+
+if(
+user==="admin" &&
+pass==="admin123"
+){
+
+closeLogin();
+
+document.getElementById(
+"dashboard"
+).style.display="block";
+
+tampilkanDashboard();
+
+alert("Login berhasil.");
+
+}else{
+
+alert(
+"Username atau Password salah."
+);
+
+}
+
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function tampilkanDashboard(){
+
+let data =
+getPengaduan();
+
+let html = "";
+
+data.forEach((item,index)=>{
+
+html +=
+
+`
+<tr>
+
+<td>${item.id}</td>
+
+<td>${item.nama}</td>
+
+<td>${item.kapal}</td>
+
+<td>${item.kategori}</td>
+
+<td>${item.status}</td>
+
+<td>
+
+<button
+class="status-btn"
+onclick="ubahStatus(${index})">
+
+Ubah
+
+</button>
+
+</td>
+
+</tr>
+`;
+
+});
+
+document.getElementById(
+"dataPengaduan"
+).innerHTML = html;
+
+}
+
+/* =========================
+   STATUS
+========================= */
+
+function ubahStatus(index){
+
+let data =
+getPengaduan();
+
+if(
+data[index].status==="Menunggu"
+){
+
+data[index].status="Diproses";
+
+}else if(
+data[index].status==="Diproses"
+){
+
+data[index].status="Selesai";
+
+}else{
+
+data[index].status="Menunggu";
+
+}
+
+savePengaduan(data);
+
+tampilkanDashboard();
+
+updateStatistik();
+
+}
+
+/* =========================
+   STATISTIK
+========================= */
+
+function updateStatistik(){
+
+let data =
+getPengaduan();
+
+let total =
+data.length;
+
+let diproses =
+data.filter(
+x=>x.status==="Diproses"
+).length;
+
+let selesai =
+data.filter(
+x=>x.status==="Selesai"
+).length;
+
+document.getElementById(
+"totalPengaduan"
+).innerText = total;
+
+document.getElementById(
+"diprosesPengaduan"
+).innerText = diproses;
+
+document.getElementById(
+"selesaiPengaduan"
+).innerText = selesai;
+
+}
+
+/* =========================
+   LOAD
+========================= */
+
+updateStatistik();
+
+</script>
+
+</body>
+</html>
